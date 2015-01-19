@@ -1,0 +1,7 @@
+tmp/*
+dist/*
+server/views/*
+log/*
+node_modules/*
+.git/*
+test/*
