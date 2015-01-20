@@ -31,7 +31,7 @@ var Room = React.createClass({
       done: function (room) {
         return (
           <div className='room-body'>
-            <div className='room-name'>{room.name}</div>
+            <h1 className='room-name'>{room.name}</h1>
             {renderMessages()}
             <NewMessage roomId={room.id} />
           </div>
@@ -51,8 +51,8 @@ var Room = React.createClass({
       },
       done: function (messages) {
         messages = _.sortBy(messages, function (message) {
-          return message.timestamp;
-        }).reverse();
+          return new Date(message.timestamp);
+        });
 
         return (
           <ul className='messages'>

@@ -4,6 +4,7 @@ var _ = require('underscore');
 module.exports = {
   createRoom: function (name) {
     return {
+      id: uuid(),
       name: name,
       messages: [],
       cid: this.cid()

@@ -5,6 +5,7 @@ var Marty = require('marty');
 var _ = require('underscore');
 var NewRoom = require('./newRoom');
 var RoomsStore = require('stores/roomsStore');
+var NavigationActionCreators = require('actions/navigationActionCreators');
 
 var HomeStateMixin = Marty.createStateMixin({
   listenTo: RoomsStore,
@@ -20,13 +21,14 @@ var Home = React.createClass({
   render: function () {
     return (
       <div className="home">
-        <h1 ref="title">Rooms</h1>
         <NewRoom />
         {this.renderRooms()}
       </div>
     );
   },
   renderRooms: function () {
+    var navigateToRoom = this.navigateToRoom;
+
     return this.state.rooms.when({
       pending: function () {
         return <div className='pending'>Loading rooms...</div>;
@@ -38,12 +40,22 @@ var Home = React.createClass({
         return (
           <ul className="rooms">
             {_.map(rooms, function (room) {
-              return <li className='room'>{room.name}</li>
+              return (
+                <li className='room'>
+                  <a href="javascript:void(0)"
+                     onClick={_.partial(navigateToRoom, room.id)}>
+                     {room.name}
+                  </a>
+                </li>
+              );
             })}
           </ul>
         );
       }
     });
+  },
+  navigateToRoom: function (roomId) {
+    NavigationActionCreators.navigateToRoom(roomId);
   }
 });
 

@@ -1,4 +1,5 @@
 var Marty = require('marty');
+var RoomsStore = require('stores/roomsStore');
 var MessagesStore = require('stores/messagesStore');
 var SocketStateSource = require('marty-socket.io-state-source');
 var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
@@ -16,7 +17,9 @@ var ServerUpdatesSocket = Marty.createStateSource({
     }
   },
   onRoomCreated: function (room) {
-    RoomSourceActionCreators.addRoom(room);
+    if (!RoomsStore.roomExists(room.id)) {
+      RoomSourceActionCreators.addRoom(room);
+    }
   }
 });
 

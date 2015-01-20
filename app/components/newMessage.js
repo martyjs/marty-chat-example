@@ -8,10 +8,13 @@ var NewMessage = React.createClass({
   render: function () {
     return (
       <div className='new-message'>
-        <input type='text'
-               value={this.state.text}
-               onChange={this.updateText}/>
-        <button onClick={this.sendMessage}>Send</button>
+        <textarea
+          rows="3"
+          value={this.state.text}
+          className="form-control"
+          onKeyDown={this.onKeyDown}
+          onChange={this.updateText}/>
+        <button className='btn btn-primary' onClick={this.sendMessage}>Send</button>
       </div>
     );
   },
@@ -19,6 +22,11 @@ var NewMessage = React.createClass({
     return {
       text: ''
     };
+  },
+  onKeyDown: function (e) {
+    if (e.keyCode === 13) {
+      this.sendMessage();
+    }
   },
   updateText: function (e) {
     this.setState({
@@ -31,6 +39,7 @@ var NewMessage = React.createClass({
       this.props.roomId
     );
     this.setState(this.getInitialState());
+    return false;
   }
 });
 

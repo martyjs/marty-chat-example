@@ -10,9 +10,7 @@ var RoomActionCreators = Marty.createActionCreators({
 
     this.dispatch(room);
 
-    return RoomHttpAPI.createRoom(room).then(function (roomId) {
-      NavigationActionCreators.navigateToRoom(roomId);
-    });
+    return RoomHttpAPI.createRoom(room);
   })
 });
 

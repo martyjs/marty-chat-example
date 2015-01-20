@@ -6,7 +6,7 @@ module.exports = function(config) {
     frameworks: ['mocha', 'browserify'],
     browserify: {
       debug: true,
-      transform: ['reactify', 'envify'],
+      transform: ['reactify', 'envify', 'cssify'],
       prebundle: require('./build/prebundle')
     },
     files: [

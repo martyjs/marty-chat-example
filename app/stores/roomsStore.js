@@ -7,9 +7,9 @@ var RoomConstants = require('constants/roomConstants');
 var RoomStore = Marty.createStore({
   displayName: 'rooms',
   handlers: {
-    addRoom: RoomConstants.ADD_ROOM,
     addRooms: RoomConstants.ADD_ROOMS,
-    updateRoom: RoomConstants.UPDATE_ROOM
+    updateRoom: RoomConstants.UPDATE_ROOM,
+    addRoom: [RoomConstants.ADD_ROOM, RoomConstants.CREATE_ROOM]
   },
   getInitialState: function () {
     return {};
@@ -36,6 +36,11 @@ var RoomStore = Marty.createStore({
           id: id
         }) || null;
       }
+    });
+  },
+  roomExists: function (id) {
+    return _.findWhere(_.values(this.state), {
+      id: id
     });
   },
   updateRoom: function (cid, room) {

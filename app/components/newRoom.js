@@ -8,21 +8,32 @@ var NewRoom = React.createClass({
     var name = this.state.name;
 
     return (
-      <div className='new-room'>
-        <input ref='name'
+      <form className='new-room form-inline'>
+        <div className='form-group'>
+          <input
+               ref='name'
+               name='name'
                type='text'
                value={name}
+               placeholder='Room name'
+               className='form-control'
+               onKeyDown={this.onKeyDown}
                onChange={this.updateRoomName} />
-
-        <button ref='createRoom' onClick={this.createRoom}>
+        </div>
+        <button className='btn btn-default' ref='createRoom' onClick={this.createRoom}>
           Create room
         </button>
-      </div>
+      </form>
     );
   },
   getInitialState: function () {
     return {
       name: ''
+    }
+  },
+  onKeyDown: function (e) {
+    if (e.keyCode === 13) {
+      this.createRoom();
     }
   },
   updateRoomName: function (e) {
@@ -31,8 +42,13 @@ var NewRoom = React.createClass({
     });
   },
   createRoom: function () {
+    if (this.state.name.trim() === "") {
+      return false;
+    }
+
     RoomActionCreators.createRoom(this.state.name);
     this.setState(this.getInitialState());
+    return false;
   }
 });
 

@@ -7,7 +7,8 @@ module.exports = {
       text: text,
       id: uuid(),
       roomId: roomId,
-      cid: this.cid()
+      cid: this.cid(),
+      timestamp: new Date().toJSON()
     };
   },
   cid: function () {
