@@ -26,21 +26,24 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+app.get('/rooms/:id', function (req, res) {
+  res.render('index');
+});
+
 app.get('/api/rooms', function(req, res) {
   res.json(rooms.getAllRooms()).end();
 });
 
 app.post('/api/rooms', function (req, res) {
-  console.log(req.body);
   var room = rooms.createRoom(req.body);
 
   res.json(room).status(201).end();
 });
 
 app.post('/api/rooms/:roomId/messages', function(req, res) {
-  rooms.addMessage(roomId(req), req.body);
+  var message = rooms.addMessage(roomId(req), req.body);
 
-  res.status(201).end();
+  res.json(message).status(201).end();
 });
 
 app.get('/api/rooms/:roomId/messages', function (req, res) {
@@ -49,24 +52,12 @@ app.get('/api/rooms/:roomId/messages', function (req, res) {
   res.json(messages).end();
 });
 
-app.post('/api/rooms/:roomId/members/:email', function (req, res) {
-  rooms.addRoomMember(roomId(req), req.params.email);
-
-  res.status(200).end();
-});
-
-app.delete('/api/rooms/:roomId/members/:email', function (req, res) {
-  rooms.removeRoomMember(roomId(req), req.params.email);
-
-  res.status(204).end();
-});
-
 rooms.on('*', function() {
   console.log.apply(console, _.union([this.event], _.toArray(arguments)));
 });
 
 function roomId(req) {
-  return parseInt(req.params.roomId);
+  return req.params.roomId;
 }
 
 io.on('connection', function(socket) {

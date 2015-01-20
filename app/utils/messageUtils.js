@@ -1,14 +1,14 @@
 var _ = require('underscore');
 
 module.exports = {
-  createRoom: function (name) {
+  createMessage: function (text, roomId) {
     return {
-      name: name,
-      messages: [],
+      text: text,
+      roomId: roomId,
       cid: this.cid()
     };
   },
   cid: function () {
-    return _.uniqueId('room');
+    return _.uniqueId('message');
   }
 };

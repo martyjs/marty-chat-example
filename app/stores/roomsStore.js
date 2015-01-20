@@ -12,8 +12,6 @@ var RoomStore = Marty.createStore({
     updateRoom: RoomConstants.UPDATE_ROOM
   },
   getInitialState: function () {
-    this.getAll();
-
     return {};
   },
   getAll: function () {
@@ -34,10 +32,9 @@ var RoomStore = Marty.createStore({
       id: id,
       dependsOn: this.getAll(),
       locally: function () {
-        return this.state[id];
-      },
-      remotely: function () {
-        return RoomHttpAPI.getRoom(id);
+        return _.findWhere(_.values(this.state), {
+          id: id
+        }) || null;
       }
     });
   },

@@ -4,7 +4,7 @@ var React = require('react');
 var Marty = require('marty');
 var _ = require('underscore');
 var NewRoom = require('./newRoom');
-var RoomsStore = require('stores/roomStore');
+var RoomsStore = require('stores/roomsStore');
 
 var HomeStateMixin = Marty.createStateMixin({
   listenTo: RoomsStore,
@@ -35,7 +35,6 @@ var Home = React.createClass({
         return <div className='error'>Failed to load rooms. {error.message}</div>;
       },
       done: function (rooms) {
-        console.log(rooms);
         return (
           <ul className="rooms">
             {_.map(rooms, function (room) {

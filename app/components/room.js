@@ -1,12 +1,18 @@
+/** @jsx React.DOM */
+
 var React = require('react');
 var Marty = require('marty');
-var RoomStore = require('stores/roomStore');
+var _ = require('underscore');
+var NewMessage = require('./newMessage');
+var RoomsStore = require('stores/roomsStore');
+var MessagesStore = require('stores/messagesStore');
 
 var RoomState = Marty.createStateMixin({
-  listenTo: [RoomStore],
+  listenTo: [RoomsStore, MessagesStore],
   getState: function () {
     return {
-      room: RoomStore.getById(this.props.id)
+      room: RoomsStore.getRoom(this.props.id),
+      messages: MessagesStore.getMessagesForRoom(this.props.id)
     };
   }
 });
@@ -14,15 +20,53 @@ var RoomState = Marty.createStateMixin({
 var Room = React.createClass({
   mixins: [RoomState],
   render: function () {
-    return this.state.room.when({
+    var renderMessages = this.renderMessages;
+    var body = this.state.room.when({
       pending: function () {
-        return <div className='loading'>Loading</div>;
+        return <div className='loading'>Loading...</div>;
       },
-      error: function (error) {
-        return <div className='error'>{error.message}</div>;
+      failed: function (error) {
+        return <div className='error'>Failed to load room. {error.message}</div>;
       },
       done: function (room) {
-        return <div className='room'>{room}</div>;
+        return (
+          <div className='room-body'>
+            <div className='room-name'>{room.name}</div>
+            {renderMessages()}
+            <NewMessage roomId={room.id} />
+          </div>
+        );
+      }
+    });
+
+    return <div className='room'>{body}</div>;
+  },
+  renderMessages: function () {
+    return this.state.messages.when({
+      pending: function () {
+        return <div className='messages-loading'>Loading messages...</div>
+      },
+      failed: function (error) {
+        return <div className='messages-error'>Failed to load messages. {error.message}</div>
+      },
+      done: function (messages) {
+        messages = _.sortBy(messages, function (message) {
+          return message.timestamp;
+        }).reverse();
+
+        return (
+          <ul className='messages'>
+            {_.map(messages, function (message) {
+              return (
+                <li className='message'>
+                  <div className='message-text'>
+                    {message.text}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        );
       }
     });
   }

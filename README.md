@@ -8,16 +8,13 @@
 ##HTTP Endpoints
 
 * ``GET /rooms``: List of rooms
-* ``GET /rooms/:room/messages``: Messages in a room
-* ``POST /rooms/:room/messages``: Post message to a room
-* ``POST /rooms/:room/members/:email``: Join a room
-* ``DELETE /rooms/:room/members/:email`` Loave a room
+* ``GET /rooms/:roomId``: Get room
+* ``GET /rooms/:roomId/messages``: Messages in a room
+* ``POST /rooms/:roomId/messages``: Post message to a room
 
 ###Server events
 
 * ``message``: A message has been sent
-* ``room:left``: A user has left a room
-* ``room:joined``: A user has joined a room
 * ``room:created``: A new room has been created
 
 ###Message schema
@@ -25,7 +22,7 @@
 ```
 {
   text: "Hello world",
-  email: "foo@bar.com",
-  timestamp: "2014-09-05T21:29:01.000Z"
+  timestamp: "2014-09-05T21:29:01.000Z",
+  roomId: "8a720550-a09f-11e4-b472-c7ff2cae8c5f"
 }
 ```

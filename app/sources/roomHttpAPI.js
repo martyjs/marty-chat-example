@@ -2,7 +2,7 @@ var Marty = require('marty');
 var _ = require('underscore');
 var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
 
-var RoomHttpStateSource = Marty.createStateSource({
+var RoomHttpAPI = Marty.createStateSource({
   type: 'http',
   getAllRooms: function () {
     return this.get('/api/rooms').then(function (res) {
@@ -21,9 +21,11 @@ var RoomHttpStateSource = Marty.createStateSource({
     };
 
     return this.post(req).then(function (res) {
-      return RoomSourceActionCreators.updateRoom(room.cid, res.body);
+      RoomSourceActionCreators.updateRoom(room.cid, res.body);
+
+      return res.body.id;
     });
   }
 });
 
-module.exports = RoomHttpStateSource;
+module.exports = RoomHttpAPI;

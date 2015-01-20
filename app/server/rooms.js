@@ -10,9 +10,7 @@ function Rooms() {
   this.addMessage = addMessage;
   this.createRoom = createRoom;
   this.getAllRooms = getAllRooms;
-  this.addRoomMember = addRoomMember;
   this.getRoomMessages = getRoomMessages;
-  this.removeRoomMember = removeRoomMember;
   this.state = {};
 
   EventEmitter2.call(this, {
@@ -24,7 +22,6 @@ function Rooms() {
   function createRoom(room) {
     _.defaults(room, {
       id: uuid(),
-      members: [],
       messages: []
     });
 
@@ -38,7 +35,7 @@ function Rooms() {
     var room = rooms[roomId];
 
     if (room) {
-      return _.pick(room, 'name', 'members');
+      return room;
     }
   }
 
@@ -66,34 +63,8 @@ function Rooms() {
         message: message,
         room: room.id
       });
-    }
-  }
 
-  function addRoomMember(roomId, email) {
-    var room = rooms[roomId];
-
-    if (room) {
-      if (room.members.indexOf(email) === -1) {
-        room.members.push(email);
-        emit('room:joined', {
-          room: room,
-          email: email
-        });
-      }
-    }
-  }
-
-  function removeRoomMember(roomId, email) {
-    var room = rooms[roomId];
-
-    if (room) {
-      if (room.members.indexOf(email) !== -1) {
-        room.members.push(email);
-        emit('room:left', {
-          room: room,
-          email: email
-        });
-      }
+      return message;
     }
   }
 }
