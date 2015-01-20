@@ -3,16 +3,17 @@ var _ = require('lodash');
 var util = require('util');
 var path = require('path');
 var uuid = require('uuid').v1;
-var app = require('express')();
 var morgan = require('morgan');
 var rooms = require('./rooms');
 var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+var port = process.env.PORT || 5000;
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+server.listen(port);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -56,10 +57,6 @@ rooms.on('*', function() {
   console.log.apply(console, _.union([this.event], _.toArray(arguments)));
 });
 
-function roomId(req) {
-  return req.params.roomId;
-}
-
 io.on('connection', function(socket) {
   rooms.on('*', function() {
     var args = _.toArray(arguments);
@@ -68,4 +65,6 @@ io.on('connection', function(socket) {
   });
 });
 
-module.exports = app;
+function roomId(req) {
+  return req.params.roomId;
+}

@@ -1,3 +1,4 @@
+var uuid = require('uuid').v1;
 var _ = require('underscore');
 
 module.exports = {

@@ -1,9 +1,0 @@
-#!/usr/bin/env node
-
-var app = require('../app/server');
-
-app.set('port', process.env.PORT || 5000);
-
-var server = app.listen(app.get('port'), function() {
-  console.info('marty-chat-example started at http://localhost:' + app.get('port'));
-});

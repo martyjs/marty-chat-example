@@ -11,7 +11,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     nodemon: {
       serve: {
-        script: './bin/www'
+        script: './app/server'
       }
     },
     concurrent: {

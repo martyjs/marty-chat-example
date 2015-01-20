@@ -10,7 +10,8 @@
     "react": "^0.12.1",
     "react-router": "^0.11.6",
     "socket.io": "^1.1.0",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "marty-socket.io-state-source": "^0.0.1"
   },
   "scripts": {
     "start": "grunt",

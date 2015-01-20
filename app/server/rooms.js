@@ -26,7 +26,7 @@ function Rooms() {
     });
 
     rooms[room.id] = room;
-    emit('room:created', { room: room });
+    emit('room:created', room);
 
     return room;
   }
@@ -57,12 +57,13 @@ function Rooms() {
     var room = rooms[roomId];
 
     if (room) {
+      _.defaults(message, {
+        id: uuid()
+      });
+
       room.messages.push(message);
 
-      emit('message', {
-        message: message,
-        room: room.id
-      });
+      emit('message', message);
 
       return message;
     }

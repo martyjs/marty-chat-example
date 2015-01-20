@@ -25,6 +25,15 @@ var MessagesStore = Marty.createStore({
       }
     });
   },
+  getMessage: function (messageId, roomId) {
+    var messages = this.state[roomId];
+
+    if (messages) {
+      return _.findWhere(messages, {
+        id: messageId
+      });
+    }
+  },
   updateMessage: function (cid, message) {
     var oldMessage = _.findWhere(this.state[message.roomId], {
       cid: cid
