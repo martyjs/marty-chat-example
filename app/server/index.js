@@ -27,13 +27,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/rooms', function(req, res) {
-  res.json(rooms.getAll()).end();
+  res.json(rooms.getAllRooms()).end();
 });
 
 app.post('/api/rooms', function (req, res) {
+  console.log(req.body);
   var room = rooms.createRoom(req.body);
 
-  res.status(201).json(room).end();
+  res.json(room).status(201).end();
 });
 
 app.post('/api/rooms/:roomId/messages', function(req, res) {

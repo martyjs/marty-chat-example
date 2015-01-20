@@ -21,16 +21,17 @@ function Rooms() {
 
   var emit = _.bind(this.emit, this);
 
-  function createRoom(name) {
-    var room = {
+  function createRoom(room) {
+    _.defaults(room, {
       id: uuid(),
-      name: name,
       members: [],
       messages: []
-    };
+    });
 
     rooms[room.id] = room;
     emit('room:created', { room: room });
+
+    return room;
   }
 
   function getRoom(roomId) {

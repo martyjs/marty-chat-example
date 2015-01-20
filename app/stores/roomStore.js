@@ -1,41 +1,63 @@
 var _ = require('lodash');
 var Marty = require('marty');
+var RoomUtils = require('utils/roomUtils');
+var RoomHttpAPI = require('sources/roomHttpAPI');
 var RoomConstants = require('constants/roomConstants');
-var RoomHttpStateSource = require('sources/roomHttpStateSource');
 
 var RoomStore = Marty.createStore({
-  name: 'rooms',
+  displayName: 'rooms',
   handlers: {
     addRoom: RoomConstants.ADD_ROOM,
-    addRooms: RoomConstants.ADD_ROOMS
+    addRooms: RoomConstants.ADD_ROOMS,
+    updateRoom: RoomConstants.UPDATE_ROOM
   },
   getInitialState: function () {
-    RoomHttpStateSource.getAllRooms();
+    this.getAll();
 
     return {};
   },
   getAll: function () {
-    return _.values(this.state);
+    return this.fetch({
+      id: 'all-rooms',
+      locally: function () {
+        if (this.hasAlreadyFetched('all-rooms')) {
+          return _.values(this.state);
+        }
+      },
+      remotely: function () {
+        return RoomHttpAPI.getAllRooms();
+      }
+    });
+  },
+  getRoom: function (id) {
+    return this.fetch({
+      id: id,
+      dependsOn: this.getAll(),
+      locally: function () {
+        return this.state[id];
+      },
+      remotely: function () {
+        return RoomHttpAPI.getRoom(id);
+      }
+    });
+  },
+  updateRoom: function (cid, room) {
+    this.state[cid] = _.extend(room, this.state[cid]);
+    this.hasChanged();
   },
   addRoom: function (room) {
     this.addRooms([room]);
   },
   addRooms: function (rooms) {
     _.each(rooms, function (room) {
-      this.state[room.id] = room;
+      if (!room.cid) {
+        room.cid = RoomUtils.cid();
+      }
+
+      this.state[room.cid] = room;
     }, this);
 
     this.hasChanged();
-  },
-  getRoom: function (id) {
-    return this.fetch(id,
-      function () {
-        return this.state[id];
-      },
-      function () {
-        return RoomHttpStateSource.getRoom(id);
-      }
-    );
   }
 });
 
