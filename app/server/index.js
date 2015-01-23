@@ -13,6 +13,7 @@ var port = process.env.PORT || 5000;
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+console.log('Running server http://localhost:' + port);
 server.listen(port);
 
 app.set('views', path.join(__dirname, 'views'));
