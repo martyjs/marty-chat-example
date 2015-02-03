@@ -28,7 +28,9 @@ module.exports = function (grunt) {
       }
     },
     browserify: {
-      release: browserifyOptions(),
+      release: browserifyOptions({
+        debug: true
+      }),
       watch: browserifyOptions({
         watch: true,
         debug: true
