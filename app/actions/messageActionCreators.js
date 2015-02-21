@@ -10,7 +10,7 @@ var MessageActionCreators = Marty.createActionCreators({
 
     this.dispatch(message);
 
-    return MessageHttpAPI.createMessage(message);
+    MessageHttpAPI.createMessage(message);
   })
 });
 

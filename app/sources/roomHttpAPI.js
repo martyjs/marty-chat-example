@@ -20,10 +20,8 @@ var RoomHttpAPI = Marty.createStateSource({
       body: _.omit(room, 'cid')
     };
 
-    return this.post(req).then(function (res) {
+    this.post(req).then(function (res) {
       RoomSourceActionCreators.updateRoom(room.cid, res.body);
-
-      return res.body.id;
     });
   }
 });
