@@ -16,7 +16,7 @@ var MessageHttpAPI = Marty.createStateSource({
       url: format('/api/rooms/%s/messages', message.roomId)
     };
 
-    return this.post(req).then(function (res) {
+    this.post(req).then(function (res) {
       MessageSourceActionCreators.updateMessage(message.cid, res.body);
     });
   }
