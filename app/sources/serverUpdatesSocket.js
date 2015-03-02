@@ -6,6 +6,7 @@ var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
 var MessageSourceActionCreators = require('actions/messageSourceActionCreators');
 
 var ServerUpdatesSocket = Marty.createStateSource({
+  id: 'ServerUpdatesSocket',
   mixins: [SocketStateSource()],
   events: {
     'message': 'onMessage',

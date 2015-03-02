@@ -5,6 +5,7 @@ var MessageSourceActionCreators = require('actions/messageSourceActionCreators')
 
 var MessageHttpAPI = Marty.createStateSource({
   type: 'http',
+  id: 'MessageHttpAPI',
   getMessagesForRoom: function (roomId) {
     return this.get(format('/api/rooms/%s/messages', roomId)).then(function (res) {
       return MessageSourceActionCreators.addMessages(roomId, res.body);

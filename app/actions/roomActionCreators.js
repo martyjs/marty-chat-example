@@ -5,13 +5,17 @@ var RoomConstants = require('constants/roomConstants');
 var NavigationActionCreators = require('./navigationActionCreators');
 
 var RoomActionCreators = Marty.createActionCreators({
-  createRoom: RoomConstants.CREATE_ROOM(function (name) {
+  id: 'RoomActionCreators',
+  types: {
+    createRoom: RoomConstants.CREATE_ROOM
+  },
+  createRoom: function (name) {
     var room = RoomUtils.createRoom(name);
 
     this.dispatch(room);
 
     RoomHttpAPI.createRoom(room);
-  })
+  }
 });
 
 module.exports = RoomActionCreators;

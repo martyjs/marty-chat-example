@@ -5,7 +5,7 @@ var RoomHttpAPI = require('sources/roomHttpAPI');
 var RoomConstants = require('constants/roomConstants');
 
 var RoomStore = Marty.createStore({
-  displayName: 'rooms',
+  id: 'Rooms',
   handlers: {
     addRooms: RoomConstants.ADD_ROOMS,
     updateRoom: RoomConstants.UPDATE_ROOM,

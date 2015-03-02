@@ -4,6 +4,7 @@ var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
 
 var RoomHttpAPI = Marty.createStateSource({
   type: 'http',
+  id: 'RoomHttpAPI',
   getAllRooms: function () {
     return this.get('/api/rooms').then(function (res) {
       return RoomSourceActionCreators.addRooms(res.body);

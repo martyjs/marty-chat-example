@@ -5,7 +5,7 @@ var MessageHttpAPI = require('sources/messageHttpAPI');
 var MessageConstants = require('constants/messageConstants');
 
 var MessagesStore = Marty.createStore({
-  displayName: 'rooms',
+  id: 'Messages',
   handlers: {
     addMessage: MessageConstants.ADD_MESSAGE,
     addMessages: MessageConstants.ADD_MESSAGES,

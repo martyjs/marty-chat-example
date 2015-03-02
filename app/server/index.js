@@ -25,11 +25,6 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 app.use('/styles', express.static(path.join(__dirname, '..', 'styles')));
 
-
-app.get('/', function (req, res) {
-  res.render('index');
-});
-
 app.get('/rooms/:id', function (req, res) {
   res.render('index');
 });
