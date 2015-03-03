@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var RoomActionCreators = require('actions/roomActionCreators');
+var RoomActionCreators = require('../actions/roomActionCreators');
 
 var NewRoom = React.createClass({
   render: function () {
@@ -46,7 +46,7 @@ var NewRoom = React.createClass({
       return false;
     }
 
-    RoomActionCreators.createRoom(this.state.name);
+    RoomActionCreators.for(this).createRoom(this.state.name);
     this.setState(this.getInitialState());
     return false;
   }

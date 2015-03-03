@@ -4,14 +4,14 @@ var React = require('react');
 var Marty = require('marty');
 var _ = require('underscore');
 var NewRoom = require('./newRoom');
-var RoomsStore = require('stores/roomsStore');
-var NavigationActionCreators = require('actions/navigationActionCreators');
+var RoomsStore = require('../stores/roomsStore');
+var NavigationActionCreators = require('../actions/navigationActionCreators');
 
 var HomeStateMixin = Marty.createStateMixin({
   listenTo: RoomsStore,
   getState: function () {
     return {
-      rooms: RoomsStore.getAll()
+      rooms: RoomsStore.for(this).getAll()
     };
   }
 });
@@ -55,7 +55,7 @@ var Home = React.createClass({
     });
   },
   navigateToRoom: function (roomId) {
-    NavigationActionCreators.navigateToRoom(roomId);
+    NavigationActionCreators.for(this).navigateToRoom(roomId);
   }
 });
 

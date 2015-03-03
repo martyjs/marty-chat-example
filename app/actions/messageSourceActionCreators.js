@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var MessageConstants = require('constants/messageConstants');
+var MessageConstants = require('../constants/messageConstants');
 
 var MessageSourceActionCreators = Marty.createActionCreators({
   id: 'MessageSourceActionCreators',

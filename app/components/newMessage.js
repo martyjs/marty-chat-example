@@ -2,7 +2,7 @@
 
 var React = require('react');
 var _ = require('underscore');
-var MessageActionCreators = require('actions/messageActionCreators');
+var MessageActionCreators = require('../actions/messageActionCreators');
 
 var NewMessage = React.createClass({
   render: function () {
@@ -34,7 +34,7 @@ var NewMessage = React.createClass({
     });
   },
   sendMessage: function () {
-    MessageActionCreators.sendMessage(
+    MessageActionCreators.for(this).sendMessage(
       this.state.text,
       this.props.roomId
     );

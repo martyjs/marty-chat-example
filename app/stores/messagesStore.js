@@ -1,8 +1,8 @@
 var _ = require('lodash');
 var Marty = require('marty');
-var MessageUtils = require('utils/messageUtils');
-var MessageHttpAPI = require('sources/messageHttpAPI');
-var MessageConstants = require('constants/messageConstants');
+var MessageUtils = require('../utils/messageUtils');
+var MessageHttpAPI = require('../sources/messageHttpAPI');
+var MessageConstants = require('../constants/messageConstants');
 
 var MessagesStore = Marty.createStore({
   id: 'Messages',
@@ -21,7 +21,7 @@ var MessagesStore = Marty.createStore({
         return this.state[roomId];
       },
       remotely: function () {
-        return MessageHttpAPI.getMessagesForRoom(roomId);
+        return MessageHttpAPI.for(this).getMessagesForRoom(roomId);
       }
     });
   },

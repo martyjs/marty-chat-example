@@ -1,3 +1,5 @@
+require('node-jsx').install()
+
 var fs = require('fs');
 var _ = require('lodash');
 var util = require('util');
@@ -22,6 +24,11 @@ app.set('port', process.env.PORT || 5000);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(require('marty-express')({
+  marty: require('marty'),
+  routes: require('../routes')
+}));
+
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 app.use('/styles', express.static(path.join(__dirname, '..', 'styles')));
 

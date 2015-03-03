@@ -1,9 +1,9 @@
 var Marty = require('marty');
-var RoomsStore = require('stores/roomsStore');
-var MessagesStore = require('stores/messagesStore');
+var RoomsStore = require('../stores/roomsStore');
+var MessagesStore = require('../stores/messagesStore');
 var SocketStateSource = require('marty-socket.io-state-source');
-var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
-var MessageSourceActionCreators = require('actions/messageSourceActionCreators');
+var RoomSourceActionCreators = require('../actions/roomSourceActionCreators');
+var MessageSourceActionCreators = require('../actions/messageSourceActionCreators');
 
 var ServerUpdatesSocket = Marty.createStateSource({
   id: 'ServerUpdatesSocket',

@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var RoomConstants = require('constants/roomConstants');
+var RoomConstants = require('../constants/roomConstants');
 
 var RoomSourceActionCreators = Marty.createActionCreators({
   id: 'RoomSourceActionCreators',

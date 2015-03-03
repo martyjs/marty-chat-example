@@ -1,19 +1,19 @@
 var Marty = require('marty');
 var _ = require('underscore');
-var RoomSourceActionCreators = require('actions/roomSourceActionCreators');
+var RoomSourceActionCreators = require('../actions/roomSourceActionCreators');
 
 var RoomHttpAPI = Marty.createStateSource({
   type: 'http',
   id: 'RoomHttpAPI',
   getAllRooms: function () {
-    return this.get('/api/rooms').then(function (res) {
-      return RoomSourceActionCreators.addRooms(res.body);
-    });
+    return this.get('/api/rooms').then((function (res) {
+      return RoomSourceActionCreators.for(this).addRooms(res.body);
+    }).bind(this));
   },
   getRoom: function (id) {
-    return this.get('/api/rooms/' + id).then(function (res) {
-      return RoomSourceActionCreators.addRoom(res.body);
-    });
+    return this.get('/api/rooms/' + id).then((function (res) {
+      return RoomSourceActionCreators.for(this).addRoom(res.body);
+    }).bind(this));
   },
   createRoom: function (room) {
     var req = {
@@ -21,9 +21,9 @@ var RoomHttpAPI = Marty.createStateSource({
       body: _.omit(room, 'cid')
     };
 
-    this.post(req).then(function (res) {
-      RoomSourceActionCreators.updateRoom(room.cid, res.body);
-    });
+    this.post(req).then((function (res) {
+      RoomSourceActionCreators.for(this).updateRoom(room.cid, res.body);
+    }).bind(this));
   }
 });
 

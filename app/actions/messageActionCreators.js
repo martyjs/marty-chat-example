@@ -1,7 +1,7 @@
 var Marty = require('marty');
-var MessageUtils = require('utils/messageUtils');
-var MessageHttpAPI = require('sources/messageHttpAPI')
-var MessageConstants = require('constants/messageConstants');
+var MessageUtils = require('../utils/messageUtils');
+var MessageHttpAPI = require('../sources/messageHttpAPI')
+var MessageConstants = require('../constants/messageConstants');
 var NavigationActionCreators = require('./navigationActionCreators');
 
 var MessageActionCreators = Marty.createActionCreators({

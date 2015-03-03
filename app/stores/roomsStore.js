@@ -1,8 +1,8 @@
 var _ = require('lodash');
 var Marty = require('marty');
-var RoomUtils = require('utils/roomUtils');
-var RoomHttpAPI = require('sources/roomHttpAPI');
-var RoomConstants = require('constants/roomConstants');
+var RoomUtils = require('../utils/roomUtils');
+var RoomHttpAPI = require('../sources/roomHttpAPI');
+var RoomConstants = require('../constants/roomConstants');
 
 var RoomStore = Marty.createStore({
   id: 'Rooms',
@@ -23,7 +23,7 @@ var RoomStore = Marty.createStore({
         }
       },
       remotely: function () {
-        return RoomHttpAPI.getAllRooms();
+        return RoomHttpAPI.for(this).getAllRooms();
       }
     });
   },

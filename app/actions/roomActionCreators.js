@@ -1,7 +1,7 @@
 var Marty = require('marty');
-var RoomUtils = require('utils/roomUtils');
-var RoomHttpAPI = require('sources/roomHttpAPI')
-var RoomConstants = require('constants/roomConstants');
+var RoomUtils = require('../utils/roomUtils');
+var RoomHttpAPI = require('../sources/roomHttpAPI')
+var RoomConstants = require('../constants/roomConstants');
 var NavigationActionCreators = require('./navigationActionCreators');
 
 var RoomActionCreators = Marty.createActionCreators({

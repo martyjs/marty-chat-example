@@ -4,15 +4,15 @@ var React = require('react');
 var Marty = require('marty');
 var _ = require('underscore');
 var NewMessage = require('./newMessage');
-var RoomsStore = require('stores/roomsStore');
-var MessagesStore = require('stores/messagesStore');
+var RoomsStore = require('../stores/roomsStore');
+var MessagesStore = require('../stores/messagesStore');
 
 var RoomState = Marty.createStateMixin({
   listenTo: [RoomsStore, MessagesStore],
   getState: function () {
     return {
-      room: RoomsStore.getRoom(this.props.id),
-      messages: MessagesStore.getMessagesForRoom(this.props.id)
+      room: RoomsStore.for(this).getRoom(this.props.id),
+      messages: MessagesStore.for(this).getMessagesForRoom(this.props.id)
     };
   }
 });
