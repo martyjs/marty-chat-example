@@ -1,11 +1,10 @@
+var db = require('./db');
 var _ = require('lodash');
 var util = require('util');
 var uuid = require('uuid').v1;
 var EventEmitter2 = require('eventemitter2').EventEmitter2;
 
 function Rooms() {
-  var rooms = {};
-
   this.getRoom = getRoom;
   this.addMessage = addMessage;
   this.createRoom = createRoom;
@@ -25,14 +24,14 @@ function Rooms() {
       messages: []
     });
 
-    rooms[room.id] = room;
+    db.set(room.id, room);
     emit('room:created', room);
 
     return room;
   }
 
   function getRoom(roomId) {
-    var room = rooms[roomId];
+    var room = db.get(roomId);
 
     if (room) {
       return room;
@@ -40,7 +39,7 @@ function Rooms() {
   }
 
   function getRoomMessages(roomId) {
-    var room = rooms[roomId];
+    var room = db.get(roomId);
 
     if (room) {
       return room.messages;
@@ -50,11 +49,11 @@ function Rooms() {
   }
 
   function getAllRooms() {
-    return _.values(rooms);
+    return _.values(db.get());
   }
 
   function addMessage(roomId, message) {
-    var room = rooms[roomId];
+    var room = db.get(roomId);
 
     if (room) {
       _.defaults(message, {
@@ -62,6 +61,8 @@ function Rooms() {
       });
 
       room.messages.push(message);
+
+      db.set(roomId, room);
 
       emit('message', message);
 

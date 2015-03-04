@@ -8,6 +8,8 @@ window.React = React; // For React Developer Tools
 window.Marty = Marty; // For Marty Developer Tools
 
 if (process.env.NODE_ENV !== 'test') {
+  Marty.rehydrate()
+
   if (Marty.isBrowser) {
     require('./sources/serverUpdatesSocket').open();
   }
