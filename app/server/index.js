@@ -8,6 +8,7 @@ var uuid = require('uuid').v1;
 var morgan = require('morgan');
 var rooms = require('./rooms');
 var express = require('express');
+var Table = require('cli-table');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -26,7 +27,29 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(require('marty-express')({
   marty: require('marty'),
-  routes: require('../routes')
+  routes: require('../routes'),
+  rendered: function (result) {
+    console.log('Rendered ' + result.req.url);
+
+    var table = new Table({
+      colWidths: [30, 30, 30, 30, 40],
+      head: ['Store Id', 'Fetch Id', 'Status', 'Time', 'Result']
+    });
+
+    _.each(result.diagnostics, function (diagnostic) {
+      table.push([
+        diagnostic.storeId,
+        diagnostic.fetchId,
+        diagnostic.status,
+        diagnostic.time.
+        diagnostic.result || diagnostic.error
+      ]);
+    });
+
+    console.log(table.toString());
+
+    console.log(result.html);
+  }
 }));
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));

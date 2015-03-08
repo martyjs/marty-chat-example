@@ -1,5 +1,5 @@
 var uuid = require('uuid').v1;
-var _ = require('underscore');
+var _ = require('lodash');
 
 module.exports = {
   createMessage: function (text, roomId) {

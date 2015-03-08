@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var _ = require('underscore');
+var _ = require('lodash');
 var format = require('util').format;
 var MessageSourceActionCreators = require('../actions/messageSourceActionCreators');
 

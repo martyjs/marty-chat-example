@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var Router = require('react-router');
+var Router = require('react-router/build/npm');
 
 module.exports = Router.create({
   routes: require('./routes'),

@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var _ = require('underscore');
+var _ = require('lodash');
 var RoomSourceActionCreators = require('../actions/roomSourceActionCreators');
 
 var RoomHttpAPI = Marty.createStateSource({

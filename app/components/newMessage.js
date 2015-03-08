@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var _ = require('underscore');
+var _ = require('lodash');
 var MessageActionCreators = require('../actions/messageActionCreators');
 
 var NewMessage = React.createClass({

@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Marty = require('marty');
-var _ = require('underscore');
+var _ = require('lodash');
 var NewRoom = require('./newRoom');
 var RoomsStore = require('../stores/roomsStore');
 var NavigationActionCreators = require('../actions/navigationActionCreators');
