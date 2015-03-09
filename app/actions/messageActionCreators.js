@@ -1,20 +1,21 @@
 var Marty = require('marty');
 var MessageUtils = require('../utils/messageUtils');
-var MessageHttpAPI = require('../sources/messageHttpAPI')
+var MessagesAPI = require('../sources/messagesAPI');
 var MessageConstants = require('../constants/messageConstants');
-var NavigationActionCreators = require('./navigationActionCreators');
 
 var MessageActionCreators = Marty.createActionCreators({
   id: 'MessageActionCreators',
-  types: {
-    sendMessage: MessageConstants.ADD_MESSAGE
-  },
   sendMessage: function (text, roomId) {
     var message = MessageUtils.createMessage(text, roomId);
 
-    this.dispatch(message);
+    this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, message);
 
-    MessageHttpAPI.createMessage(message);
+    MessagesAPI.createMessage(message).then(function (res) {
+      this.dispatch(MessageConstants.UPDATE_MESSAGE, message.cid, res.body);
+    }.bind(this))
+  },
+  recieveMessages: function (messages) {
+    this.dispatch(MessageConstants.RECIEVE_MESSAGES, messages);
   }
 });
 

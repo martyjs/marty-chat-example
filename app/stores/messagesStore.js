@@ -1,14 +1,13 @@
 var _ = require('lodash');
 var Marty = require('marty');
 var MessageUtils = require('../utils/messageUtils');
-var MessageHttpAPI = require('../sources/messageHttpAPI');
+var MessageQueries = require('../queries/messageQueries');
 var MessageConstants = require('../constants/messageConstants');
 
 var MessagesStore = Marty.createStore({
   id: 'Messages',
   handlers: {
-    addMessage: MessageConstants.ADD_MESSAGE,
-    addMessages: MessageConstants.ADD_MESSAGES,
+    addMessages: MessageConstants.RECIEVE_MESSAGES,
     updateMessage: MessageConstants.UPDATE_MESSAGE
   },
   getInitialState: function () {
@@ -21,7 +20,7 @@ var MessagesStore = Marty.createStore({
         return this.state[roomId];
       },
       remotely: function () {
-        return MessageHttpAPI.for(this).getMessagesForRoom(roomId);
+        return MessageQueries.for(this).getMessagesForRoom(roomId);
       }
     });
   },
@@ -44,10 +43,11 @@ var MessagesStore = Marty.createStore({
       this.hasChanged();
     }
   },
-  addMessage: function (message) {
-    this.addMessages(message.roomId, [message]);
-  },
   addMessages: function (roomId, messages) {
+    if (!_.isArray(messages)) {
+      messages = [messages];
+    }
+
     _.each(messages, function (message) {
       if (!message.cid) {
         message.cid = MessageUtils.cid();

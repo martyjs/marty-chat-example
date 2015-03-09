@@ -1,15 +1,14 @@
 var _ = require('lodash');
 var Marty = require('marty');
 var RoomUtils = require('../utils/roomUtils');
-var RoomHttpAPI = require('../sources/roomHttpAPI');
+var RoomQueries = require('../queries/roomQueries');
 var RoomConstants = require('../constants/roomConstants');
 
 var RoomStore = Marty.createStore({
   id: 'Rooms',
   handlers: {
-    addRooms: RoomConstants.ADD_ROOMS,
     updateRoom: RoomConstants.UPDATE_ROOM,
-    addRoom: [RoomConstants.ADD_ROOM, RoomConstants.CREATE_ROOM]
+    addRooms: RoomConstants.RECIEVE_ROOMS
   },
   getInitialState: function () {
     return {};
@@ -23,7 +22,7 @@ var RoomStore = Marty.createStore({
         }
       },
       remotely: function () {
-        return RoomHttpAPI.for(this).getAllRooms();
+        return RoomQueries.for(this).getAllRooms();
       }
     });
   },
@@ -51,6 +50,10 @@ var RoomStore = Marty.createStore({
     this.addRooms([room]);
   },
   addRooms: function (rooms) {
+    if (!_.isArray(rooms)) {
+      rooms = [rooms];
+    }
+
     _.each(rooms, function (room) {
       if (!room.cid) {
         room.cid = RoomUtils.cid();

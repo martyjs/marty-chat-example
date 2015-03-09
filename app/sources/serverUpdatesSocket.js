@@ -2,8 +2,8 @@ var Marty = require('marty');
 var RoomsStore = require('../stores/roomsStore');
 var MessagesStore = require('../stores/messagesStore');
 var SocketStateSource = require('marty-socket.io-state-source');
-var RoomSourceActionCreators = require('../actions/roomSourceActionCreators');
-var MessageSourceActionCreators = require('../actions/messageSourceActionCreators');
+var RoomActionCreators = require('../actions/roomActionCreators');
+var MessageActionCreators = require('../actions/messageActionCreators');
 
 var ServerUpdatesSocket = Marty.createStateSource({
   id: 'ServerUpdatesSocket',
@@ -14,12 +14,12 @@ var ServerUpdatesSocket = Marty.createStateSource({
   },
   onMessage: function (message) {
     if (!MessagesStore.getMessage(message.id, message.roomId)) {
-      MessageSourceActionCreators.addMessage(message);
+      MessageActionCreators.recieveMessage(message);
     }
   },
   onRoomCreated: function (room) {
     if (!RoomsStore.roomExists(room.id)) {
-      RoomSourceActionCreators.addRoom(room);
+      RoomActionCreators.recieveRoom(room);
     }
   }
 });

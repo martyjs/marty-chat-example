@@ -1,8 +1,7 @@
 var Marty = require('marty');
 
 var MessageConstants = Marty.createConstants([
-  'ADD_MESSAGE',
-  'ADD_MESSAGES',
+  'RECIEVE_MESSAGES',
   'UPDATE_MESSAGE'
 ]);
 

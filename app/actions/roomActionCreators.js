@@ -1,20 +1,22 @@
 var Marty = require('marty');
 var RoomUtils = require('../utils/roomUtils');
-var RoomHttpAPI = require('../sources/roomHttpAPI')
+var RoomsAPI = require('../sources/roomsAPI')
 var RoomConstants = require('../constants/roomConstants');
 var NavigationActionCreators = require('./navigationActionCreators');
 
 var RoomActionCreators = Marty.createActionCreators({
   id: 'RoomActionCreators',
-  types: {
-    createRoom: RoomConstants.CREATE_ROOM
-  },
   createRoom: function (name) {
     var room = RoomUtils.createRoom(name);
 
-    this.dispatch(room);
+    this.dispatch(RoomConstants.RECIEVE_ROOMS, room);
 
-    RoomHttpAPI.createRoom(room);
+    RoomsAPI.createRoom(room).then(function (res) {
+      this.dispatch(RoomConstants.UPDATE_ROOM, room.cid, res.body);
+    }.bind(this))
+  },
+  recieveRooms: function (rooms) {
+    this.dispatch(RoomConstants.RECIEVE_ROOMS, rooms);
   }
 });
 
