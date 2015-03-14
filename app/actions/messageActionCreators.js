@@ -14,8 +14,8 @@ var MessageActionCreators = Marty.createActionCreators({
       this.dispatch(MessageConstants.UPDATE_MESSAGE, message.cid, res.body);
     }.bind(this))
   },
-  recieveMessages: function (messages) {
-    this.dispatch(MessageConstants.RECIEVE_MESSAGES, messages);
+  recieveMessages: function (roomId, messages) {
+    this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, messages);
   }
 });
 

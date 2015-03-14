@@ -1,4 +1,4 @@
-require('node-jsx').install()
+require('babel/register');
 
 var fs = require('fs');
 var _ = require('lodash');
@@ -41,14 +41,12 @@ app.use(require('marty-express')({
         diagnostic.storeId,
         diagnostic.fetchId,
         diagnostic.status,
-        diagnostic.time.
-        diagnostic.result || diagnostic.error
+        diagnostic.time,
+        JSON.stringify(diagnostic.result || diagnostic.error, null, 2)
       ]);
     });
 
     console.log(table.toString());
-
-    console.log(result.html);
   }
 }));
 

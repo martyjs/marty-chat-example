@@ -5,13 +5,13 @@
   "dependencies": {
     "eventemitter2": "^0.4.14",
     "express": "^4.8.8",
-    "lodash": "2.4.1",
+    "lodash": "3.5.0",
     "marty": "0.9.x",
     "marty-express": "^0.1.0",
     "marty-socket.io-state-source": "^0.0.1",
-    "node-jsx": "^0.12.4",
+    "babel": "^4.0.0",
     "react": "0.13.x",
-    "react-router": "git://github.com/rackt/react-router#0.13-compat",
+    "react-router": "git://github.com/nhunzaker/react-router",
     "socket.io": "^1.1.0",
     "super-simple-db": "^1.0.0",
     "uuid": "^2.0.1"
