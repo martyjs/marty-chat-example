@@ -52,6 +52,7 @@ app.use(require('marty-express')({
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 app.use('/styles', express.static(path.join(__dirname, '..', 'styles')));
+app.use('/node_modules', express.static(path.join(__dirname, '..', '..', 'node_modules')));
 
 app.get('/rooms/:id', function (req, res) {
   res.render('index');
