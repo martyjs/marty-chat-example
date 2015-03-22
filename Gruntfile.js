@@ -4,7 +4,6 @@ module.exports = function (grunt) {
   var INPUT_PATH = 'app/index.js';
   var OUTPUT_PATH = './dist/javascripts/marty-chat-example.js';
 
-  grunt.registerTask('test', 'karma');
   grunt.registerTask('default', 'concurrent:serve');
   grunt.registerTask('release', ['browserify:release', 'exorcise', 'uglify:release']);
 
@@ -20,11 +19,6 @@ module.exports = function (grunt) {
         options: {
           logConcurrentOutput: true
         }
-      }
-    },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js'
       }
     },
     browserify: {
@@ -66,7 +60,7 @@ module.exports = function (grunt) {
       options: {
         watch: !!options.watch,
         keepAlive: !!options.watch,
-        transform: ['reactify', 'envify', 'cssify'],
+        transform: ['babelify', 'envify', 'cssify'],
         browserifyOptions: {
           debug: !!options.debug
         }

@@ -5,56 +5,19 @@ var NewMessage = require('./newMessage');
 var RoomsStore = require('../stores/roomsStore');
 var MessagesStore = require('../stores/messagesStore');
 
-var RoomState = Marty.createStateMixin({
-  listenTo: [RoomsStore, MessagesStore],
-  getState: function () {
-    return {
-      room: RoomsStore.for(this).getRoom(this.props.id),
-      messages: MessagesStore.for(this).getMessagesForRoom(this.props.id)
-    };
-  }
-});
-
 var Room = React.createClass({
-  mixins: [RoomState],
   render: function () {
-    var renderMessages = this.renderMessages;
-    var body = this.state.room.when({
-      pending: function () {
-        return <div className='loading'>Loading...</div>;
-      },
-      failed: function (error) {
-        return <div className='error'>Failed to load room. {error.message}</div>;
-      },
-      done: function (room) {
-        return (
-          <div className='room-body'>
-            <h1 className='room-name'>{room.name}</h1>
-            {renderMessages()}
-            <NewMessage roomId={room.id} />
-          </div>
-        );
-      }
+    var room = this.props.room;
+    var messages = _.sortBy(this.props.messages, function (message) {
+      return new Date(message.timestamp);
     });
 
-    return <div className='room'>{body}</div>;
-  },
-  renderMessages: function () {
-    return this.state.messages.when({
-      pending: function () {
-        return <div className='messages-loading'>Loading messages...</div>
-      },
-      failed: function (error) {
-        return <div className='messages-error'>Failed to load messages. {error.message}</div>
-      },
-      done: function (messages) {
-        messages = _.sortBy(messages, function (message) {
-          return new Date(message.timestamp);
-        });
-
-        return (
+    return (
+      <div className='room'>
+        <div className='room-body'>
+          <h1 className='room-name'>{room.name}</h1>
           <ul className='messages'>
-            {_.map(messages, function (message) {
+            {_.map(messages, (message) => {
               return (
                 <li className='message'>
                   <div className='message-text'>
@@ -64,10 +27,27 @@ var Room = React.createClass({
               );
             })}
           </ul>
-        );
-      }
-    });
+          <NewMessage roomId={room.id} />
+        </div>
+      </div>
+    );
   }
 });
 
-module.exports = Room;
+module.exports = Marty.createContainer(Room, {
+  listenTo: [RoomsStore, MessagesStore],
+  fetch: {
+    room() {
+      return RoomsStore.for(this).getRoom(this.props.id)
+    },
+    messages() {
+      return MessagesStore.for(this).getMessagesForRoom(this.props.id)
+    }
+  },
+  pending() {
+    return <div className='loading'>Loading...</div>;
+  },
+  failed(errors) {
+    return <div className='error'>Failed to load room. {errors}</div>;
+  }
+});

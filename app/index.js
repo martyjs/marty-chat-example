@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Marty = require('marty');
 var Router = require('./router');
