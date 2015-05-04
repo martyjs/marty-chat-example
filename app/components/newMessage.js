@@ -1,8 +1,9 @@
+var Marty = require('marty');
 var React = require('react');
 var _ = require('lodash');
-var MessageActionCreators = require('../actions/messageActionCreators');
 
 var NewMessage = React.createClass({
+  contextTypes: Marty.contextTypes,
   render: function () {
     return (
       <div className='new-message'>
@@ -32,7 +33,7 @@ var NewMessage = React.createClass({
     });
   },
   sendMessage: function () {
-    MessageActionCreators.for(this).sendMessage(
+    this.context.app.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );

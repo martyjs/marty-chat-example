@@ -26,8 +26,8 @@ app.set('port', process.env.PORT || 5000);
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(require('marty-express')({
-  marty: require('marty'),
   routes: require('../routes'),
+  application: require('../application'),
   rendered: function (result) {
     console.log('Rendered ' + result.req.url);
 

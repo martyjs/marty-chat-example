@@ -20,7 +20,7 @@ var MessagesStore = Marty.createStore({
         return this.state[roomId];
       },
       remotely: function () {
-        return MessageQueries.for(this).getMessagesForRoom(roomId);
+        return this.app.messageQueries.getMessagesForRoom(roomId);
       }
     });
   },

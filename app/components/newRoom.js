@@ -1,7 +1,8 @@
 var React = require('react');
-var RoomActionCreators = require('../actions/roomActionCreators');
+var Marty = require('marty');
 
 var NewRoom = React.createClass({
+  contextTypes: Marty.contextTypes,
   render: function () {
     var name = this.state.name;
 
@@ -44,7 +45,7 @@ var NewRoom = React.createClass({
       return false;
     }
 
-    RoomActionCreators.for(this).createRoom(this.state.name);
+    this.context.app.roomActionCreators.createRoom(this.state.name);
     this.setState(this.getInitialState());
     return false;
   }

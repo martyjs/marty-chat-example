@@ -1,6 +1,5 @@
 var Marty = require('marty');
 var MessageUtils = require('../utils/messageUtils');
-var MessagesAPI = require('../sources/messagesAPI');
 var MessageConstants = require('../constants/messageConstants');
 
 var MessageActionCreators = Marty.createActionCreators({
@@ -10,7 +9,7 @@ var MessageActionCreators = Marty.createActionCreators({
 
     this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, message);
 
-    MessagesAPI.createMessage(message).then(function (res) {
+    this.app.messagesAPI.createMessage(message).then(function (res) {
       this.dispatch(MessageConstants.UPDATE_MESSAGE, message.cid, res.body);
     }.bind(this))
   },

@@ -2,10 +2,9 @@ var _ = require('lodash');
 var React = require('react');
 var Marty = require('marty');
 var NewRoom = require('./newRoom');
-var RoomsStore = require('../stores/roomsStore');
-var NavigationActionCreators = require('../actions/navigationActionCreators');
 
 var Home = React.createClass({
+  contextTypes: Marty.contextTypes,
   render() {
     return (
       <div className="home">
@@ -26,15 +25,15 @@ var Home = React.createClass({
     );
   },
   navigateToRoom(roomId) {
-    NavigationActionCreators.for(this).navigateToRoom(roomId);
+    this.context.app.navigationActionCreators.navigateToRoom(roomId);
   }
 });
 
 module.exports = Marty.createContainer(Home, {
-  listenTo: RoomsStore,
+  listenTo: 'roomsStore',
   fetch: {
     rooms() {
-      return RoomsStore.for(this).getAll();
+      return this.app.roomsStore.getAll();
     }
   },
   pending() {
