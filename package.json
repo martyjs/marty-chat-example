@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "babel": "^5.0.0",
+    "babel": "^6.0.0",
     "eventemitter2": "^0.4.14",
     "express": "^4.8.8",
     "lodash": "3.5.0",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "aliasify": "^1.5.1",
-    "babelify": "^5.0.4",
+    "babelify": "^6.0.0",
     "body-parser": "^1.9.0",
     "browserify": "^9.0.0",
     "browserify-shim": "^3.8.1",

@@ -1,6 +1,7 @@
 tmp/*
-dist/*
+dist/
 server/views/*
+app/*
 log/*
 .git/*
 test/*

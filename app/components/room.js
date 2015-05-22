@@ -38,10 +38,10 @@ module.exports = Marty.createContainer(Room, {
   listenTo: ['roomsStore', 'messagesStore'],
   fetch: {
     room() {
-      return this.app.roomsStore.getRoom(this.props.id)
+      return this.roomsStore.getRoom(this.props.id)
     },
     messages() {
-      return this.app.messagesStore.getMessagesForRoom(this.props.id)
+      return this.messagesStore.getMessagesForRoom(this.props.id)
     }
   },
   pending() {

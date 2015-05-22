@@ -3,7 +3,6 @@ var React = require('react');
 var _ = require('lodash');
 
 var NewMessage = React.createClass({
-  contextTypes: Marty.contextTypes,
   render: function () {
     return (
       <div className='new-message'>
@@ -33,7 +32,7 @@ var NewMessage = React.createClass({
     });
   },
   sendMessage: function () {
-    this.context.app.messageActionCreators.sendMessage(
+    this.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );
@@ -42,4 +41,6 @@ var NewMessage = React.createClass({
   }
 });
 
-module.exports = NewMessage;
+module.exports = Marty.createContainer(NewMessage, {
+  inject: 'messageActionCreators'
+});

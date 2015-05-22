@@ -4,7 +4,6 @@ var Marty = require('marty');
 var NewRoom = require('./newRoom');
 
 var Home = React.createClass({
-  contextTypes: Marty.contextTypes,
   render() {
     return (
       <div className="home">
@@ -25,15 +24,16 @@ var Home = React.createClass({
     );
   },
   navigateToRoom(roomId) {
-    this.context.app.navigationActionCreators.navigateToRoom(roomId);
+    this.navigationActionCreators.navigateToRoom(roomId);
   }
 });
 
 module.exports = Marty.createContainer(Home, {
   listenTo: 'roomsStore',
+  inject: 'navigationActionCreators',
   fetch: {
     rooms() {
-      return this.app.roomsStore.getAll();
+      return this.roomsStore.getAll();
     }
   },
   pending() {

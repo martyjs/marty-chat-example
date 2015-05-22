@@ -16,8 +16,6 @@ if (process.env.NODE_ENV !== 'test') {
   }
 
   Router.run(function (Handler, state) {
-    Handler = app.bindTo(Handler);
-
-    React.render(<Handler {...state.params} />, document.getElementById('app'));
+    app.render(<Handler {...state.params} />, document.getElementById('app'));
   });
 }

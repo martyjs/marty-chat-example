@@ -41,14 +41,18 @@ var NewRoom = React.createClass({
     });
   },
   createRoom: function () {
-    if (this.state.name.trim() === "") {
-      return false;
-    }
+    e.stopPropagation();
+    e.preventDefault();
 
-    this.context.app.roomActionCreators.createRoom(this.state.name);
-    this.setState(this.getInitialState());
-    return false;
+    if (this.state.name.trim() !== "") {
+      this.roomActionCreators.createRoom(this.state.name);
+      this.setState({
+        name: ''
+      });
+    }
   }
 });
 
-module.exports = NewRoom;
+module.exports = Marty.createContainer(NewRoom, {
+  inject: 'roomActionCreators'
+});
