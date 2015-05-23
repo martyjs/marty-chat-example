@@ -32,7 +32,7 @@ var NewMessage = React.createClass({
     });
   },
   sendMessage: function () {
-    this.messageActionCreators.sendMessage(
+    this.app.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );
@@ -41,6 +41,4 @@ var NewMessage = React.createClass({
   }
 });
 
-module.exports = Marty.createContainer(NewMessage, {
-  inject: 'messageActionCreators'
-});
+module.exports = Marty.createContainer(NewMessage);

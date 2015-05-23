@@ -24,16 +24,15 @@ var Home = React.createClass({
     );
   },
   navigateToRoom(roomId) {
-    this.navigationActionCreators.navigateToRoom(roomId);
+    this.app.navigationActionCreators.navigateToRoom(roomId);
   }
 });
 
 module.exports = Marty.createContainer(Home, {
   listenTo: 'roomsStore',
-  inject: 'navigationActionCreators',
   fetch: {
     rooms() {
-      return this.roomsStore.getAll();
+      return this.app.roomsStore.getAll();
     }
   },
   pending() {

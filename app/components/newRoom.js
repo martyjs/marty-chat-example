@@ -45,7 +45,7 @@ var NewRoom = React.createClass({
     e.preventDefault();
 
     if (this.state.name.trim() !== "") {
-      this.roomActionCreators.createRoom(this.state.name);
+      this.app.roomActionCreators.createRoom(this.state.name);
       this.setState({
         name: ''
       });
@@ -53,6 +53,4 @@ var NewRoom = React.createClass({
   }
 });
 
-module.exports = Marty.createContainer(NewRoom, {
-  inject: 'roomActionCreators'
-});
+module.exports = Marty.createContainer(NewRoom);
