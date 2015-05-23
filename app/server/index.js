@@ -42,7 +42,7 @@ app.use(require('marty-express')({
         diagnostic.fetchId,
         diagnostic.status,
         diagnostic.time,
-        JSON.stringify(diagnostic.result || diagnostic.error, null, 2)
+        JSON.stringify(diagnostic.result || diagnostic.error || {}, null, 2)
       ]);
     });
 

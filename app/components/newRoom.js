@@ -2,7 +2,6 @@ var React = require('react');
 var Marty = require('marty');
 
 var NewRoom = React.createClass({
-  contextTypes: Marty.contextTypes,
   render: function () {
     var name = this.state.name;
 
