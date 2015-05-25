@@ -39,7 +39,7 @@ var NewRoom = React.createClass({
       name: e.currentTarget.value
     });
   },
-  createRoom: function () {
+  createRoom: function (e) {
     e.stopPropagation();
     e.preventDefault();
 

@@ -11,7 +11,7 @@ var Home = React.createClass({
         <ul className="rooms">
           {_.map(this.props.rooms, (room) => {
             return (
-              <li className='room'>
+              <li key={room.id} className='room'>
                 <a href="javascript:void(0)"
                    onClick={_.partial(this.navigateToRoom, room.id)}>
                    {room.name}
