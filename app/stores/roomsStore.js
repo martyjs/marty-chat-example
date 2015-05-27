@@ -22,7 +22,7 @@ var RoomStore = Marty.createStore({
         }
       },
       remotely: function () {
-        return RoomQueries.for(this).getAllRooms();
+        return this.app.roomQueries.getAllRooms();
       }
     });
   },

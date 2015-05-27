@@ -1,18 +1,25 @@
 var React = require('react');
 var Marty = require('marty');
-var Router = require('./router');
+var Application = require('./application');
+var ApplicationContainer = Marty.ApplicationContainer;
 
 window.React = React; // For React Developer Tools
 window.Marty = Marty; // For Marty Developer Tools
 
 if (process.env.NODE_ENV !== 'test') {
-  Marty.rehydrate()
+  var app = new Application();
+
+  app.rehydrate();
 
   if (Marty.isBrowser) {
-    require('./sources/serverUpdatesSocket').open();
+    app.serverUpdatesSocket.open();
   }
 
-  Router.run(function (Handler, state) {
-    React.render(<Handler {...state.params} />, document.getElementById('app'));
+  app.router.run(function (Handler, state) {
+    React.render((
+      <ApplicationContainer app={app}>
+        <Handler {...state.params} />
+      </ApplicationContainer>
+    ), document.getElementById('app'));
   });
 }

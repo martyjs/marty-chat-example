@@ -2,8 +2,6 @@ var _ = require('lodash');
 var React = require('react');
 var Marty = require('marty');
 var NewRoom = require('./newRoom');
-var RoomsStore = require('../stores/roomsStore');
-var NavigationActionCreators = require('../actions/navigationActionCreators');
 
 var Home = React.createClass({
   render() {
@@ -13,7 +11,7 @@ var Home = React.createClass({
         <ul className="rooms">
           {_.map(this.props.rooms, (room) => {
             return (
-              <li className='room'>
+              <li key={room.id} className='room'>
                 <a href="javascript:void(0)"
                    onClick={_.partial(this.navigateToRoom, room.id)}>
                    {room.name}
@@ -26,15 +24,15 @@ var Home = React.createClass({
     );
   },
   navigateToRoom(roomId) {
-    NavigationActionCreators.for(this).navigateToRoom(roomId);
+    this.app.navigationActionCreators.navigateToRoom(roomId);
   }
 });
 
 module.exports = Marty.createContainer(Home, {
-  listenTo: RoomsStore,
+  listenTo: 'roomsStore',
   fetch: {
     rooms() {
-      return RoomsStore.for(this).getAll();
+      return this.app.roomsStore.getAll();
     }
   },
   pending() {

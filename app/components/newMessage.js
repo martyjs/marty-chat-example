@@ -1,6 +1,6 @@
+var Marty = require('marty');
 var React = require('react');
 var _ = require('lodash');
-var MessageActionCreators = require('../actions/messageActionCreators');
 
 var NewMessage = React.createClass({
   render: function () {
@@ -32,7 +32,7 @@ var NewMessage = React.createClass({
     });
   },
   sendMessage: function () {
-    MessageActionCreators.for(this).sendMessage(
+    this.app.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );
@@ -41,4 +41,4 @@ var NewMessage = React.createClass({
   }
 });
 
-module.exports = NewMessage;
+module.exports = Marty.createContainer(NewMessage);

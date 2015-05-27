@@ -1,5 +1,5 @@
 var React = require('react');
-var RoomActionCreators = require('../actions/roomActionCreators');
+var Marty = require('marty');
 
 var NewRoom = React.createClass({
   render: function () {
@@ -39,15 +39,17 @@ var NewRoom = React.createClass({
       name: e.currentTarget.value
     });
   },
-  createRoom: function () {
-    if (this.state.name.trim() === "") {
-      return false;
-    }
+  createRoom: function (e) {
+    e.stopPropagation();
+    e.preventDefault();
 
-    RoomActionCreators.for(this).createRoom(this.state.name);
-    this.setState(this.getInitialState());
-    return false;
+    if (this.state.name.trim() !== "") {
+      this.app.roomActionCreators.createRoom(this.state.name);
+      this.setState({
+        name: ''
+      });
+    }
   }
 });
 
-module.exports = NewRoom;
+module.exports = Marty.createContainer(NewRoom);
