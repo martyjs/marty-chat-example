@@ -8,7 +8,7 @@ var RoomStore = Marty.createStore({
   id: 'Rooms',
   handlers: {
     updateRoom: RoomConstants.UPDATE_ROOM,
-    addRooms: RoomConstants.RECIEVE_ROOMS
+    addRooms: RoomConstants.RECEIVE_ROOMS
   },
   getInitialState: function () {
     return {};

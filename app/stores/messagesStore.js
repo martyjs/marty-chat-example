@@ -7,7 +7,7 @@ var MessageConstants = require('../constants/messageConstants');
 var MessagesStore = Marty.createStore({
   id: 'Messages',
   handlers: {
-    addMessages: MessageConstants.RECIEVE_MESSAGES,
+    addMessages: MessageConstants.RECEIVE_MESSAGES,
     updateMessage: MessageConstants.UPDATE_MESSAGE
   },
   getInitialState: function () {

@@ -1,7 +1,7 @@
 var Marty = require('marty');
 
 var RoomConstants = Marty.createConstants([
-  'RECIEVE_ROOMS',
+  'RECEIVE_ROOMS',
   'UPDATE_ROOM'
 ]);
 

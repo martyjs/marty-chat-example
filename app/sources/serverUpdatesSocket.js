@@ -14,12 +14,12 @@ var ServerUpdatesSocket = Marty.createStateSource({
   },
   onMessage: function (message) {
     if (!this.app.messagesStore.getMessage(message.id, message.roomId)) {
-      this.app.messageActionCreators.recieveMessages(message.roomId, [message]);
+      this.app.messageActionCreators.receiveMessages(message.roomId, [message]);
     }
   },
   onRoomCreated: function (room) {
     if (!this.app.roomsStore.roomExists(room.id)) {
-      this.app.roomActionCreators.recieveRooms([room]);
+      this.app.roomActionCreators.receiveRooms([room]);
     }
   }
 });

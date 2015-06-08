@@ -7,14 +7,14 @@ var MessageActionCreators = Marty.createActionCreators({
   sendMessage: function (text, roomId) {
     var message = MessageUtils.createMessage(text, roomId);
 
-    this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, message);
+    this.dispatch(MessageConstants.RECEIVE_MESSAGES, roomId, message);
 
     this.app.messagesAPI.createMessage(message).then(function (res) {
       this.dispatch(MessageConstants.UPDATE_MESSAGE, message.cid, res.body);
     }.bind(this))
   },
-  recieveMessages: function (roomId, messages) {
-    this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, messages);
+  receiveMessages: function (roomId, messages) {
+    this.dispatch(MessageConstants.RECEIVE_MESSAGES, roomId, messages);
   }
 });
 
