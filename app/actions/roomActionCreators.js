@@ -7,14 +7,14 @@ var RoomActionCreators = Marty.createActionCreators({
   createRoom: function (name) {
     var room = RoomUtils.createRoom(name);
 
-    this.dispatch(RoomConstants.RECIEVE_ROOMS, room);
+    this.dispatch(RoomConstants.RECEIVE_ROOMS, room);
 
     this.app.roomsAPI.createRoom(room).then(function (res) {
       this.dispatch(RoomConstants.UPDATE_ROOM, room.cid, res.body);
     }.bind(this))
   },
-  recieveRooms: function (rooms) {
-    this.dispatch(RoomConstants.RECIEVE_ROOMS, rooms);
+  receiveRooms: function (rooms) {
+    this.dispatch(RoomConstants.RECEIVE_ROOMS, rooms);
   }
 });
 

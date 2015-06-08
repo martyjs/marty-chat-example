@@ -7,7 +7,7 @@ var MessageQueries = Marty.createQueries({
   id: 'MessageQueries',
   getMessagesForRoom: function (roomId) {
     return this.app.messagesAPI.getMessagesForRoom(roomId).then((function (res) {
-      this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, res.body);
+      this.dispatch(MessageConstants.RECEIVE_MESSAGES, roomId, res.body);
     }).bind(this));
   }
 });
